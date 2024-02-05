@@ -1,0 +1,29 @@
+'use client'
+import { type Todo } from '@prisma/client'
+import { useRouter } from 'next/navigation'
+import { TodosItem } from '@/todos/'
+
+import * as apiTodo from '@/todos/helpers/todos'
+
+interface TodosGridProps {
+  todos?: Todo[]
+}
+
+export const TodosGrid = ({ todos = [] }: TodosGridProps) => {
+  const router = useRouter()
+
+  const toggleTodo = async (id: string, completed: boolean) => {
+    await apiTodo.updateTodo(id, completed)
+    router.refresh()
+  }
+  return (
+    <>
+      <h1 className='pb-5 text-lg text-center font-semibold'>ToDos</h1>
+      <div className=' grid grid-cols-1 sm:grid-cols-3 gap-3'>
+        {todos.map((todo) => (
+          <TodosItem key={todo.id} todo={todo} toggleTodo={toggleTodo} />
+        ))}
+      </div>
+    </>
+  )
+}
