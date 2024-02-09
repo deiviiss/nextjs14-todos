@@ -16,8 +16,8 @@ export const TodosGridRest = ({ todos = [] }: TodosGridProps) => {
   }
   return (
     <>
-      <h1 className='pb-5 text-lg text-center font-semibold'>ToDos</h1>
-      <div className=' grid grid-cols-1 sm:grid-cols-3 gap-3'>
+      <h1 className='pb-5 text-lg text-center font-semibold'>ToDos ApiRest</h1>
+      <div className=' grid grid-cols-1 sm:grid-cols-3 gap-3 pb-4'>
         {todos.map((todo) => (
           <TodosItem key={todo.id} todo={todo} toggleTodo={toggleTodo} />
         ))}
