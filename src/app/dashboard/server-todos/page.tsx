@@ -1,5 +1,5 @@
 import prisma from '@/libs/prisma'
-import { NewTodo, TodosGridRest } from '@/todos'
+import { NewTodo, TodosGrid } from '@/todos'
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
@@ -7,6 +7,7 @@ export const metadata = {
   title: 'Listado de todos',
   description: 'Listado de todos'
 }
+
 export default async function RestTodosPage() {
   const todos = await prisma.todo.findMany(
     {
@@ -17,11 +18,12 @@ export default async function RestTodosPage() {
   )
 
   return (
-    <div>
+    <>
+      <span className='text-2xl'>Server Actions</span>
       <div className='w-full px-3 mx-5 mb-5'>
         <NewTodo />
       </div>
-      <TodosGridRest todos={todos} />
-    </div>
+      <TodosGrid todos={todos} />
+    </>
   )
 }

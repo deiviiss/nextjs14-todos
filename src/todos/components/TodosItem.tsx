@@ -14,8 +14,7 @@ export const TodosItem = ({ todo, toggleTodo }: TodosItemProps) => {
       className={todo.completed ? styles.todoDone : styles.todoPending}>
       <div className='flex flex-col sm:flex-row justify-start items-center gap-4'>
 
-        <div className={`
-        flex p-2 rounded-md cursor-pointer
+        <div className={`     flex p-2 rounded-md cursor-pointer
         hover:bg-opacity-60
         ${todo.completed ? 'bg-blue-100' : 'bg-red-300'}
         `}>

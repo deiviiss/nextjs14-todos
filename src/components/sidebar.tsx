@@ -15,7 +15,7 @@ const navItems = [
     title: 'Rest Todos'
   },
   {
-    path: '/dashboard/server-actions',
+    path: '/dashboard/server-todos',
     icon: <CiBookmarkCheck size={30} />,
     title: 'Server Actions'
   }
