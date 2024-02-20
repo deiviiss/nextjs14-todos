@@ -1,5 +1,8 @@
-export { Sidebar } from '@/components/sidebar'
+export { Sidebar } from '@/components/SideBar'
+export { SideMenuItem } from '@/components/SideMenuItem'
 
-export { WidgetItem } from '@/components/widgetitem'
+export { WidgetItem } from '@/components/WidgetItem'
 
-export { TopMenu } from '@/components/topmenu'
+export { TopMenu } from '@/components/TopMenu'
+
+export { TabBar } from '@/components/TabBar'

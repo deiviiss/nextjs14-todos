@@ -1,7 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { CiBookmarkCheck, CiLogout } from 'react-icons/ci'
-import { SideMenuItem } from './sidemenuitem'
+import { IoBasketOutline, IoCodeWorkingOutline } from 'react-icons/io5'
+import { SideMenuItem } from '@/components/'
 
 const navItems = [
   {
@@ -18,6 +19,16 @@ const navItems = [
     path: '/dashboard/server-todos',
     icon: <CiBookmarkCheck size={30} />,
     title: 'Server Actions'
+  },
+  {
+    path: '/dashboard/cookies',
+    icon: <IoCodeWorkingOutline size={30} />,
+    title: 'Cookies'
+  },
+  {
+    path: '/dashboard/products',
+    icon: <IoBasketOutline size={30} />,
+    title: 'Productos'
   }
 ]
 
