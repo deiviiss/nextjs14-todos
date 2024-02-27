@@ -21,6 +21,11 @@ pnpm run dev
 ```
 7. Execute SEED [create local database](http://localhost:3000/api/seed)
 
+# Notes: default user
+__user__ admin@mail.com
+__password__ admin
+
+
 # Prisma commands
 ```
 npx prisma init

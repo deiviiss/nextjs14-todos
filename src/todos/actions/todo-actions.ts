@@ -1,19 +1,15 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { getUserSessionServer } from '@/auth/actions/auth-actions'
 import prisma from '@/libs/prisma'
 
-const sleep = async (seconds: number = 0) => {
-  const rta = new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(true)
-    }, seconds * 1000)
-  })
-  return await rta
-}
-
 export const toggleTodo = async (id: string, completed: boolean): Promise<void> => {
-  sleep(90)
+  const user = await getUserSessionServer()
+
+  if (!user) {
+    throw new Error('Unauthorized')
+  }
 
   const todo = await prisma.todo.findFirst({
     where: { id }
@@ -21,19 +17,22 @@ export const toggleTodo = async (id: string, completed: boolean): Promise<void> 
 
   if (!todo) throw new Error('Todo not found')
 
+  if (todo.userId !== user.id) {
+    throw new Error('Unauthorized')
+  }
+
   await prisma.todo.update({
     where: { id },
     data: { completed }
   })
 
   revalidatePath('/dashboard/server-todos')
-
-  // return updatedTodo
 }
 
 export const addTodo = async (description: string) => {
   try {
-    const todo = await prisma.todo.create({ data: { description } })
+    const user = await getUserSessionServer()
+    const todo = await prisma.todo.create({ data: { description, userId: user?.id || '' } })
 
     revalidatePath('/dashboard/server-todos')
 
@@ -45,8 +44,14 @@ export const addTodo = async (description: string) => {
 
 export const deleteCompleted = async () => {
   try {
+    const user = await getUserSessionServer()
+
+    if (!user) {
+      throw new Error('Unauthorized')
+    }
+
     const rta = await prisma.todo.deleteMany({
-      where: { completed: true }
+      where: { completed: true, userId: user.id }
     })
 
     revalidatePath('/dashboard/server-todos')

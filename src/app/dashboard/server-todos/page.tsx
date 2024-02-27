@@ -1,3 +1,5 @@
+import { redirect } from 'next/navigation'
+import { getUserSessionServer } from '@/auth/actions/auth-actions'
 import prisma from '@/libs/prisma'
 import { NewTodo, TodosGrid } from '@/todos'
 export const dynamic = 'force-dynamic'
@@ -9,8 +11,15 @@ export const metadata = {
 }
 
 export default async function RestTodosPage() {
+  const user = await getUserSessionServer()
+
+  if (!user) {
+    redirect('/api/auth/signin')
+  }
+
   const todos = await prisma.todo.findMany(
     {
+      where: { userId: user.id },
       orderBy: {
         description: 'asc'
       }
